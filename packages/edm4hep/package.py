@@ -32,7 +32,9 @@ class Edm4hep(CMakePackage):
     homepage = "https://github.com/HSF/EDM4hep"
     git = "https://github.com/HSF/EDM4hep.git"
 
-    version('develop', branch='master')
+    version('master', branch='master')
+    version('00-01', tag='v00-01')
+
 
     variant('build_type', default='Release',
             description='The build type to build',
@@ -50,7 +52,8 @@ class Edm4hep(CMakePackage):
     depends_on('cmake', type='build')
     depends_on('python', type='build')
     depends_on('root')
-    depends_on('podio@develop')
+    depends_on('dd4hep +geant4')
+    depends_on('podio')
     depends_on('tbb', when="+lcg")
     depends_on('davix', when="+lcg")
 

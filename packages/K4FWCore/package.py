@@ -33,6 +33,7 @@ class K4fwcore(CMakePackage):
     git = "https://github.com/key4hep/K4FWCore.git"
 
     version('master', branch='master')
+    version('00-01', tag='v00-01')
     version('develop', branch='master')
 
     variant('build_type', default='Release',
@@ -51,6 +52,8 @@ class K4fwcore(CMakePackage):
     depends_on('gaudi')
     depends_on('root')
     depends_on('podio')
+    depends_on('py-xenv')
+    depends_on('py-setuptools')
 
 
     depends_on('vdt', when="+lcg")
@@ -72,24 +75,28 @@ class K4fwcore(CMakePackage):
         # Gaudi automatically detects the processor if BINARY_TAG is not defined
         # in the environment. This leads to an error detecting a 'broadwell'
         # platform instead of 'x86_64'. This solves this issue.
-        import platform
-        binary_tag=["x86_64"]
-        tty.msg(platform.linux_distribution()[0])
-        if "CentOS" in platform.linux_distribution()[0]:
-            binary_tag.append("centos7")
-        else:
-            binary_tag.append("slc6")
+        #import platform
+        #binary_tag=["x86_64"]
+        #tty.msg(platform.linux_distribution()[0])
+        #if "CentOS" in platform.linux_distribution()[0]:
+        #    binary_tag.append("centos7")
+        #else:
+        #    binary_tag.append("slc6")
 
-        compiler_labels = {
-            "gcc@8.2.0": "gcc8",
-            "gcc@8.3.0": "gcc8",
-            "gcc@6.2.0": "gcc62"
-        }
+        #compiler_labels = {
+        #    "gcc@8.2.0": "gcc8",
+        #    "gcc@8.3.0": "gcc8",
+        #    "gcc@6.2.0": "gcc62"
+        #}
 
-        binary_tag.append(compiler_labels[str(self.compiler.spec)])
-        binary_tag.append("opt")
+        #binary_tag.append(compiler_labels[str(self.compiler.spec)])
+        #binary_tag.append("opt")
 
-        spack_env.set('BINARY_TAG', "-".join(binary_tag))
-        msg="Defining the following environment variable: BINARY_TAG="+"-".join(binary_tag)
-        tty.msg(msg)
+        #spack_env.set('BINARY_TAG', "-".join(binary_tag))
+        #msg="Defining the following environment variable: BINARY_TAG="+"-".join(binary_tag)
+        #tty.msg(msg)
+        import os
+        spack_env.set('BINARY_TAG', os.environ["BINARY_TAG"] )
+        spack_env.prepend_path("PYTHONPATH", "/cvmfs/sft.cern.ch/lcg/views/LCG_96c_LS/x86_64-centos7-gcc8-opt/lib/python2.7/site-packages")
+
 	

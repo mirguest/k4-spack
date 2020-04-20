@@ -22,7 +22,7 @@ class Key4hepStack(PackageBase):
     depends_on("edm4hep@v00-01", when="@0.1")
     depends_on("K4fwcore@v00-01", when="@0.1")
     depends_on('guinea-pig@v1.2.2rc', when="@0.1")
-    depends_on("dd4hepv01-11-02", when"@0.1")
+    depends_on("dd4hepv01-12-01", when"@0.1")
 
 
     def build(self, spec, prefix):

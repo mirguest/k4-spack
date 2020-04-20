@@ -7,14 +7,22 @@ class Key4hepStack(PackageBase):
     phases = ['build', 'install']
     build_system_class = 'BundlePackage'
 
-    url = 'https://github.com/citibeth/dummy/tarball/v1.0'
+    homepage = 'https://cern.ch/key4hep'
 
-    version('1.0', 'e2b724dfcc31d735897971db91be89ff')
+    version('0.1')
+    version('nightly')
 
-    depends_on('cmake', type='build')
-    depends_on('podio')
-    depends_on('edm4hep')
-    depends_on('K4fwcore')
+    depends_on('podio@master', when="@nightly")
+    depends_on('edm4hep@master', when="@nightly")
+    depends_on('K4fwcore@master', when="@nightly")
+    depends_on('guinea-pig@master', when="@nightly")
+    depends_on('dd4hep@master', when="@nightly")
+
+    depends_on("podio@v00-10", when="@0.1")
+    depends_on("edm4hep@v00-01", when="@0.1")
+    depends_on("K4fwcore@v00-01", when="@0.1")
+    depends_on('guinea-pig@v1.2.2rc', when="@0.1")
+    depends_on("dd4hepv01-11-02", when"@0.1")
 
 
     def build(self, spec, prefix):
